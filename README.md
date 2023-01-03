@@ -45,11 +45,13 @@ You will be using the following technologies and platforms to set up a DevOps en
     - Testing Terraform code with Checkov
 
 ## Labs
-1. [Prerequisites](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/prerequisites.md)
+1. [Prerequisites](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/prerequisites.md) - Done. 
 2. VPC - When running EKS, it requires specific networking. Because all environments will most likely be different, there's a CloudFormation template for this exact purpose.
-   - [Create EKS VPC](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/tree/main/EKS-VPC-CloudFormation)
+   - [Create EKS VPC](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/tree/main/EKS-VPC-CloudFormation) - Done. 
 3. AWS:
-    - [Configure credentials to access AWS at a programmatic level](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/AWS/1-Configure-Credentials-To-Access-AWS.md)
+    - [Configure credentials to access AWS at a programmatic level](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/AWS/1-Configure-Credentials-To-Access-AWS.md) - Done. 
+
+    
 4. Terraform - The purpose of the Terraform section is to create all of the AWS cloud services you'll need from an environment/infrastructure perspective to run the Uber application.
     - [Create S3 Bucket To Store TFSTATE Files](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Terraform-AWS-Services-Creation/1-Create-S3-Bucket-To-Store-TFSTATE-Files.md)
     - [Create an Elastic Container Registry](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Terraform-AWS-Services-Creation/2-Create-ECR.md)
