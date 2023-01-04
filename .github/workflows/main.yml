@@ -29,36 +29,9 @@ jobs:
 
 
       - name: Terraform Init
-        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        run: |
-          terraform init -migrate-state \
-            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
-
-      - name: Terraform format 
-        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        run: terraform fmt -check
-
-      - name: Terraform validate 
-        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        run: terraform validate -no-color 
-
-      - name: Terraform Plan
-        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        if: github.event_name == 'push'
-        run: terraform plan -no-color -input=false
-        continue-on-error: true
-
-      - name: Terraform Plan Status
-        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
-
-
-      - name: Terraform Init
         working-directory: Terraform-AWS-Services/ECR
         run: |
-          terraform init -migrate-state \
-            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+          terraform init -migrate-state 
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/ECR
@@ -83,8 +56,7 @@ jobs:
       - name: Terraform Init
         working-directory: Terraform-AWS-Services/EKS-Fargate
         run: |
-          terraform init -migrate-state \
-            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+          terraform init -migrate-state 
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/EKS-Fargate
@@ -109,8 +81,7 @@ jobs:
       - name: Terraform Init
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
         run: |
-          terraform init -migrate-state \
-            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+          terraform init -migrate-state 
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
