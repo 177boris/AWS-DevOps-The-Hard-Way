@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -25,16 +25,16 @@ jobs:
           aws-region: us-west-1
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v2
 
 
       - name: Terraform Init
-        working-directory: Terraform-AWS-Services/ECR
+        working-directory: /ECR
         run: |
           terraform init -migrate-state 
 
       - name: Terraform format 
-        working-directory: Terraform-AWS-Services/ECR
+        working-directory: /ECR
         run: terraform fmt 
 
       - name: Terraform validate 
@@ -53,6 +53,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
+        working-directory: Terraform-AWS-Services/ECR
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
@@ -82,6 +83,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
+        working-directory: Terraform-AWS-Services/EKS-Fargate
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
@@ -111,5 +113,6 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
+        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
