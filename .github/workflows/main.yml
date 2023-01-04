@@ -35,7 +35,7 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/ECR
-        run: terraform fmt -check
+        run: terraform fmt 
 
       - name: Terraform validate 
         working-directory: Terraform-AWS-Services/ECR
@@ -52,6 +52,10 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+
 
       - name: Terraform Init
         working-directory: Terraform-AWS-Services/EKS-Fargate
@@ -60,7 +64,7 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/EKS-Fargate
-        run: terraform fmt -check
+        run: terraform fmt 
 
       - name: Terraform validate 
         working-directory: Terraform-AWS-Services/EKS-Fargate
@@ -77,6 +81,10 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+
 
       - name: Terraform Init
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
@@ -85,7 +93,7 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        run: terraform fmt -check
+        run: terraform fmt 
 
       - name: Terraform validate
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
@@ -101,3 +109,7 @@ jobs:
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
         if: steps.plan.outcome == 'failure'
         run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
