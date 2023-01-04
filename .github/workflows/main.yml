@@ -1,6 +1,9 @@
 name: CI
 
 on:
+  push:
+      branches:
+        - main
   workflow_dispatch:
 
 jobs:
@@ -24,18 +27,118 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
+
       - name: Terraform Init
-        working-directory: Terraform-AWS-Services
+        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
         run: |
-          terraform init \
-            -backend-config "bucket=sns-tfstate-aws-devopsthehardway" \
-            -backend-config "key=elasticsearch-terraform.tfstate"
-          terraform workspace new dev || terraform workspace select dev
-      - name: Terraform Format
-        run: terraform fmt
+          terraform init -migrate-state \
+            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+
+      - name: Terraform format 
+        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate 
+        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
+        id: validate 
+        run: terraform validate -no-color 
 
       - name: Terraform Plan
-        run: terraform plan -var="environment=development" -var="elasticsearch_password=${{ secrets.ELASTICSEARCH_PASSWORD }}"
+        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
+        id: plan
+        if: github.event_name == 'push'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
 
-      - name: Terraform Apply
-        run: terraform apply -var="environment=development" -var="elasticsearch_password=${{ secrets.ELASTICSEARCH_PASSWORD }}" -auto-approve
+      - name: Terraform Plan Status
+        working-directory: Terraform-AWS-Services/S3-tfstate-bucket
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+
+      - name: Terraform Init
+        working-directory: Terraform-AWS-Services/ECR
+        run: |
+          terraform init -migrate-state \
+            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+
+      - name: Terraform format 
+        working-directory: Terraform-AWS-Services/ECR
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate 
+        working-directory: Terraform-AWS-Services/ECR
+        id: validate 
+        run: terraform validate -no-color 
+
+      - name: Terraform Plan
+        working-directory: Terraform-AWS-Services/ECR
+        id: plan
+        if: github.event_name == 'push'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - name: Terraform Plan Status
+        working-directory: Terraform-AWS-Services/ECR
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+
+      - name: Terraform Init
+        working-directory: Terraform-AWS-Services/EKS-Fargate
+        run: |
+          terraform init -migrate-state \
+            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+
+      - name: Terraform format 
+        working-directory: Terraform-AWS-Services/EKS-Fargate
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate 
+        working-directory: Terraform-AWS-Services/EKS-Fargate
+        id: validate 
+        run: terraform validate -no-color 
+
+      - name: Terraform Plan
+        working-directory: Terraform-AWS-Services/EKS-Fargate
+        id: plan
+        if: github.event_name == 'push'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - name: Terraform Plan Status
+        working-directory: Terraform-AWS-Services/EKS-Fargate
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+
+      - name: Terraform Init
+        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
+        run: |
+          terraform init -migrate-state \
+            -backend-config "bucket=sns-tfstate-aws-devopsthehardway"
+
+      - name: Terraform format 
+        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate
+        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
+        id: validate 
+        run: terraform validate -no-color 
+
+      - name: Terraform Plan
+        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
+        id: plan
+        if: github.event_name == 'push'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - name: Terraform Plan Status
+        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
