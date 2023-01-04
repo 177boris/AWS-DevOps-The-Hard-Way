@@ -5,6 +5,10 @@ on:
 
 jobs:
   build:
+    defaults:
+          run:
+            working-directory: Terraform-AWS-Services
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,20 +25,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        working-directory: Terraform-AWS-Services/elasticsearch/elasticsearch_configuration/
+        working-directory: Terraform-AWS-Services
         run: |
           terraform init \
-            -backend-config "bucket=terraform-states-monitoring-platform" \
+            -backend-config "bucket=sns-tfstate-aws-devopsthehardway" \
             -backend-config "key=elasticsearch-terraform.tfstate"
           terraform workspace new dev || terraform workspace select dev
       - name: Terraform Format
-        working-directory: Terraform-AWS-Services/elasticsearch/elasticsearch_configuration/
         run: terraform fmt
 
       - name: Terraform Plan
-        working-directory: Terraform-AWS-Services/elasticsearch/elasticsearch_configuration/
         run: terraform plan -var="environment=development" -var="elasticsearch_password=${{ secrets.ELASTICSEARCH_PASSWORD }}"
 
       - name: Terraform Apply
-        working-directory: Terraform-AWS-Services/elasticsearch/elasticsearch_configuration/
         run: terraform apply -var="environment=development" -var="elasticsearch_password=${{ secrets.ELASTICSEARCH_PASSWORD }}" -auto-approve
