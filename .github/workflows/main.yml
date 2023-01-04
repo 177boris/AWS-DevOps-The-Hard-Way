@@ -36,17 +36,14 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        id: fmt
         run: terraform fmt -check
 
       - name: Terraform validate 
         working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        id: validate 
         run: terraform validate -no-color 
 
       - name: Terraform Plan
         working-directory: Terraform-AWS-Services/S3-tfstate-bucket
-        id: plan
         if: github.event_name == 'push'
         run: terraform plan -no-color -input=false
         continue-on-error: true
@@ -65,17 +62,14 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/ECR
-        id: fmt
         run: terraform fmt -check
 
       - name: Terraform validate 
         working-directory: Terraform-AWS-Services/ECR
-        id: validate 
         run: terraform validate -no-color 
 
       - name: Terraform Plan
         working-directory: Terraform-AWS-Services/ECR
-        id: plan
         if: github.event_name == 'push'
         run: terraform plan -no-color -input=false
         continue-on-error: true
@@ -94,17 +88,14 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/EKS-Fargate
-        id: fmt
         run: terraform fmt -check
 
       - name: Terraform validate 
         working-directory: Terraform-AWS-Services/EKS-Fargate
-        id: validate 
         run: terraform validate -no-color 
 
       - name: Terraform Plan
         working-directory: Terraform-AWS-Services/EKS-Fargate
-        id: plan
         if: github.event_name == 'push'
         run: terraform plan -no-color -input=false
         continue-on-error: true
@@ -123,17 +114,14 @@ jobs:
 
       - name: Terraform format 
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        id: fmt
         run: terraform fmt -check
 
       - name: Terraform validate
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        id: validate 
         run: terraform validate -no-color 
 
       - name: Terraform Plan
         working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        id: plan
         if: github.event_name == 'push'
         run: terraform plan -no-color -input=false
         continue-on-error: true
