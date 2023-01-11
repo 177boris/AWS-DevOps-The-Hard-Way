@@ -69,12 +69,12 @@ resource "aws_iam_role" "workernodes" {
       Principal = {
         Service = "ec2.amazonaws.com"
       }
-    }, 
-    {
+      },
+      {
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
-            Service = "eks.amazonaws.com"
+          Service = "eks.amazonaws.com"
         }
     }]
     Version = "2012-10-17"

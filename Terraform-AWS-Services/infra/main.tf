@@ -1,8 +1,8 @@
 terraform {
-  required_providers{
+  required_providers {
     aws = {
-        source = "hashicorp/aws"
-        version = "~> 4.0"
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
     }
   }
   backend "s3" {
@@ -14,8 +14,8 @@ terraform {
 
 # Configure aws provider 
 provider "aws" {
-    region = var.aws_region 
-    default_tags {
-        tags =  var.default_tags 
-    }
+  region = var.aws_region
+  default_tags {
+    tags = var.default_tags
+  }
 }

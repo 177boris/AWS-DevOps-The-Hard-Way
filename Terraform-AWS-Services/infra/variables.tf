@@ -37,11 +37,11 @@ variable "repo_name" {
 }
 
 variable "default_tags" {
-  type = map(string)
+  type        = map(string)
   description = "default tags to apply to resources"
   default = {
     managed_by = "Terraform"
-    project = "aws-devops-the-hard-way"
+    project    = "aws-devops-the-hard-way"
   }
 }
 
