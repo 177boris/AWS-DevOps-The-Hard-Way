@@ -27,15 +27,16 @@ The repository contains free labs, documentation, diagrams, and docs for setting
 - [Create The Docker Image](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Docker/1-Create-Docker-Image.md) - Done. 
 - [Log Into AWS ECR Repository](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Docker/Push%20Image%20To%20ECR.md) - Done. 
 
-
-
 6. Kubernetes - The purpose of the Kubernetes section is to connect to EKS locally and to write the Kubernetes manifest to deploy the Python Uber app.
-    - [Connect To EKS From The Terminal](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/kubernetes_manifest/1-Connect-To-EKS.md)
-    - [Create A Kubernetes Manifest](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/kubernetes_manifest/2-Create-Kubernetes-Manifest.md)
+    - [Connect To EKS From The Terminal](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/kubernetes_manifest/1-Connect-To-EKS.md) - Done. 
+    - [Create A Kubernetes Manifest](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/kubernetes_manifest/2-Create-Kubernetes-Manifest.md) - Done. 
+
+
 7. Automated Testing - The purpose of the Automation Testing section is to ensure that all of the Terraform code is performing as it should be from a policy, security, and static code analysis perspective.
     - [Install And Run Checkov](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Terraform-Static-Code-Analysis/1-Checkov-For-Terraform.md)
+
 8. CICD - The purpose of this section is to automatically create an EKS cluster with CICD using GitHub Actions
-    - [Create a GitHub Actions CICD pipeline](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Terraform-AWS-Services-Creation/4-Run-CICD-For-EKS-Cluster.md)
+    - [Create a GitHub Actions CICD pipeline](https://github.com/AdminTurnedDevOps/DevOps-The-Hard-Way-AWS/blob/main/Terraform-AWS-Services-Creation/4-Run-CICD-For-EKS-Cluster.md) - Done. 
 
 
 ## DevOps Scenario
