@@ -2,15 +2,22 @@
 # LOCALS AND VARIABLES
 # =================================================================
 
+
 locals {
 
   common_tags = {
-    managed_by = "Terraform"
-    project    = "${var.project}"
+    env = "test-workflow"
   }
 
   bucket_name = lower(var.bucket_name)
 }
+
+variable "aws_region" {
+  type        = string
+  description = "AWS Region"
+  default     = "eu-west-2"
+}
+
 
 variable "bucket_name" {
   type        = string
@@ -24,10 +31,18 @@ variable "project" {
   default     = "AWS-DevOpsTheHardWay"
 }
 
-variable "aws_region" {
+variable "repo_name" {
   type        = string
-  description = "AWS Region"
-  default     = "eu-west-2"
+  description = "ECR repo to store a Docker image"
+}
+
+variable "default_tags" {
+  type = map(string)
+  description = "default tags to apply to resources"
+  default = {
+    managed_by = "Terraform"
+    project = "aws-devops-the-hard-way"
+  }
 }
 
 variable "subnet_id_1" {

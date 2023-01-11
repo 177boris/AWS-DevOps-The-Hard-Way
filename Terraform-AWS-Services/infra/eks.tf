@@ -1,25 +1,4 @@
 # =================================================================
-# Terraform Settings & Provider Configuration 
-# =================================================================
-
-terraform {
-  backend "s3" {
-    bucket = "sns-tfstate-aws-devopsthehardway"
-    key    = "eks-terraform-workernodes.tfstate"
-    region = "eu-west-2"
-  }
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
-# =================================================================
 # Resource Configuration 
 # =================================================================
 

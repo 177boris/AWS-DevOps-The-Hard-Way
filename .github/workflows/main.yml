@@ -10,7 +10,7 @@ jobs:
   build:
     defaults:
           run:
-            working-directory: Terraform-AWS-Services
+            working-directory: Terraform-AWS-Services/infra
 
     runs-on: ubuntu-latest
     steps:
@@ -29,90 +29,25 @@ jobs:
 
 
       - name: Terraform Init
-        working-directory: Terraform-AWS-Services/ECR
         run: |
           terraform init -migrate-state 
 
       - name: Terraform format 
-        working-directory: Terraform-AWS-Services/ECR
         run: terraform fmt 
 
       - name: Terraform validate 
-        working-directory: Terraform-AWS-Services/ECR
         run: terraform validate -no-color 
 
       - name: Terraform Plan
-        working-directory: Terraform-AWS-Services/ECR
         if: github.event_name == 'push'
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
       - name: Terraform Plan Status
-        working-directory: Terraform-AWS-Services/ECR
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
       - name: Terraform Apply
-        working-directory: Terraform-AWS-Services/ECR
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
-
-      - name: Terraform Init
-        working-directory: Terraform-AWS-Services/EKS-Fargate
-        run: |
-          terraform init -migrate-state 
-
-      - name: Terraform format 
-        working-directory: Terraform-AWS-Services/EKS-Fargate
-        run: terraform fmt 
-
-      - name: Terraform validate 
-        working-directory: Terraform-AWS-Services/EKS-Fargate
-        run: terraform validate -no-color 
-
-      - name: Terraform Plan
-        working-directory: Terraform-AWS-Services/EKS-Fargate
-        if: github.event_name == 'push'
-        run: terraform plan -no-color -input=false
-        continue-on-error: true
-
-      - name: Terraform Plan Status
-        working-directory: Terraform-AWS-Services/EKS-Fargate
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
-
-      - name: Terraform Apply
-        working-directory: Terraform-AWS-Services/EKS-Fargate
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
-
-
-      - name: Terraform Init
-        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        run: |
-          terraform init -migrate-state 
-
-      - name: Terraform format 
-        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        run: terraform fmt 
-
-      - name: Terraform validate
-        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        run: terraform validate -no-color 
-
-      - name: Terraform Plan
-        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        if: github.event_name == 'push'
-        run: terraform plan -no-color -input=false
-        continue-on-error: true
-
-      - name: Terraform Plan Status
-        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
-
-      - name: Terraform Apply
-        working-directory: Terraform-AWS-Services/EKS-With-Worker-Nodes
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
